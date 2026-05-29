@@ -1,7 +1,15 @@
-
-
 <div class="add-button">
-<app-button text="add"></app-button>
+  <app-button text="add" (clickedButton)="dialogAdd()"></app-button>
 </div>
 
 <app-todo-container> </app-todo-container>
+
+@if (isDialogOpen) {
+  <app-dialog
+    dialogModeName="Add new item"
+    dialogTitle="1234"
+    dialogDescription="sgas"
+    dialogPriority=""
+    (closeButton)="isDialogOpen = false"
+  ></app-dialog>
+}

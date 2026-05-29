@@ -1,0 +1,10 @@
+input {
+  width: 44px;
+  height: 44px;
+}
+
+input:checked {
+  width: 44px;
+  height: 44px;
+  accent-color: var(--bg-main);
+}

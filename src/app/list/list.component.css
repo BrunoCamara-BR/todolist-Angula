@@ -1,0 +1,60 @@
+li {
+  display: grid;
+  grid-template-columns: auto 44px;
+  grid-template-areas:
+    "title id"
+    "description check"
+    "desc-info check"
+    "finish check"
+    "finish-info check"
+    "option option";
+
+  align-items: center;
+  row-gap: 5px;
+  border-bottom: 1px solid var(--bg-main);
+  margin-bottom: 10px;
+  background-color: var(--bg-colo-list);
+  padding: 10px;
+  border-radius: var(--border-radius);
+}
+
+.title {
+  grid-area: title;
+  font-size: 24px;
+}
+
+.priority {
+  color: #8ccae0;
+}
+
+.id {
+  grid-area: id;
+  color: #ccc;
+}
+
+.description {
+  grid-area: description;
+}
+
+.desc-info {
+  grid-area: desc-info;
+}
+
+.finish {
+  grid-area: finish;
+}
+
+.finish-info {
+  grid-area: finish-info;
+}
+
+app-check-box {
+  grid-area: check;
+}
+
+.option {
+  grid-area: option;
+  display: flex;
+  justify-content: left;
+  gap: 10px;
+}

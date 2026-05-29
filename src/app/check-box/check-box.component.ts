@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 @Component({
   selector: 'app-check-box',
   imports: [],
-  template: `<input type="checkbox" (change)="emitCheck()" /> `,
+  template: `<input type="checkbox" (change)="emitCheck()" class="check" /> `,
   styleUrl: './check-box.component.css',
 })
 export class CheckBoxComponent {
