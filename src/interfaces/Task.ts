@@ -1,7 +1,7 @@
 export interface Task {
   title: string;
-  id: number;
-  priority: Priority;
+  id: number | null;
+  priority: Priority | null;
   description: string;
   finished: Date | null;
 }

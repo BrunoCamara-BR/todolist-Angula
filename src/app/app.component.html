@@ -6,10 +6,7 @@
 
 @if (isDialogOpen) {
   <app-dialog
-    dialogModeName="Add new item"
-    dialogTitle="1234"
-    dialogDescription="sgas"
-    dialogPriority=""
+    [newTask]="this.blankTask"
     (closeButton)="isDialogOpen = false"
   ></app-dialog>
 }

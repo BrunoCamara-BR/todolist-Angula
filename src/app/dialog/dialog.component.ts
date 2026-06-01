@@ -1,33 +1,55 @@
-import { Component, Input, Output, EventEmitter, input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Task } from '../../interfaces/Task';
+import { Priority } from '../../interfaces/Task';
 
 @Component({
   selector: 'app-dialog',
-  imports: [],
+  imports: [FormsModule],
   template: `
     <dialog open>
-      <h2>{{ dialogModeName }}</h2>
+      <!-- <h2>{{ dialogModeName }}</h2> -->
       <div>
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title" value="{{ dialogTitle }}" />
+        <input
+          type="text"
+          id="title"
+          name="title"
+          [(ngModel)]="newTask.title"
+        />
 
         <label for="description">Description:</label>
         <textarea
           name="description"
           id="description"
-          value="{{ dialogDescription }}"
+          [(ngModel)]="newTask.description"
+          ;
         ></textarea>
-
         <p>Priority:</p>
         <div>
-          <input type="radio" name="priority" id="low" />
+          <input
+            type="radio"
+            name="priority"
+            id="low"
+            (change)="SetPriority(priorityOptions.LOW)"
+          />
           <label for="low">low</label>
 
-          <input type="radio" name="priority" id="medium" />
+          <input
+            type="radio"
+            name="priority"
+            id="medium"
+            (change)="SetPriority(priorityOptions.MEDIUM)"
+          />
           <label for="medium">medium</label>
 
-          <input type="radio" name="priority" id="high" />
+          <input type="radio" name="priority" id="high"
+          (change)="SetPriority(priorityOptions.HIGH)"
+          
+          />
           <label for="high">high</label>
         </div>
+        <p>[{{ newTask.priority }}</p>
         <button type="button">Save</button>
         <button type="button" (click)="closeDialog()">Cancel</button>
       </div>
@@ -36,14 +58,22 @@ import { Component, Input, Output, EventEmitter, input } from '@angular/core';
   styleUrl: './dialog.component.css',
 })
 export class DialogComponent {
-  @Input() dialogModeName = '';
-  @Input() dialogTitle = '';
-  @Input() dialogDescription = '';
-  @Input() dialogPriority = '';
+  @Input() newTask!: Task;
+
+  priorityOptions = Priority;
 
   @Output() closeButton = new EventEmitter();
 
   closeDialog() {
     this.closeButton.emit();
+  }
+
+  @Output() saveTask = new EventEmitter();
+  Save() {
+    this.saveTask.emit(this.newTask);
+  }
+
+  SetPriority(priority: Priority) {
+    this.newTask.priority = priority;
   }
 }
