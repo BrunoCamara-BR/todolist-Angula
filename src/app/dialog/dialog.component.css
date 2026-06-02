@@ -1,0 +1,42 @@
+dialog {
+  margin: 20% auto;
+  padding: 10px;
+  border-radius: var(--border-radius);
+  color: var(--color-font);
+  background-color: var(--bg-colo-list);
+  border: 1px solid;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+form div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px;
+  gap: 5px;
+}
+
+form input {
+  padding: 5px;
+}
+
+form textarea {
+  padding: 5px;
+}
+
+form label {
+  font-size: 18px;
+}
+
+form button {
+  color: var(--color-font);
+  background-color: var(--bg-main);
+  border: 1px solid;
+  border-color: var(--color-border);
+  height: 44px;
+}

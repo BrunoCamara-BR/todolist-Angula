@@ -9,7 +9,7 @@ import { Priority } from '../../interfaces/Task';
   template: `
     <dialog open>
       <!-- <h2>{{ dialogModeName }}</h2> -->
-      <div>
+      <form>
         <label for="title">Title:</label>
         <input
           type="text"
@@ -50,10 +50,9 @@ import { Priority } from '../../interfaces/Task';
           />
           <label for="high">high</label>
         </div>
-        <p>[{{ newTask.priority }}</p>
         <button type="button" (click)="Save()">Save</button>
         <button type="button" (click)="closeDialog()">Cancel</button>
-      </div>
+      </form>
     </dialog>
   `,
   styleUrl: './dialog.component.css',
