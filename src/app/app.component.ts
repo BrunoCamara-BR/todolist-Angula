@@ -1,14 +1,14 @@
-import { Component, CreateComputedOptions } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ButtonComponent } from './button/button.component';
 import { TodoContainerComponent } from './todo-container/todo-container.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { Priority, Task } from '../interfaces/Task';
+import { TaskService } from './services/task.service';
 
 @Component({
   selector: 'app-root',
   imports: [
-    RouterOutlet,
     ButtonComponent,
     TodoContainerComponent,
     DialogComponent,
@@ -20,20 +20,20 @@ export class AppComponent {
   title = 'todolist-angular';
   isDialogOpen = false;
 
-  dialogMode = 'edit';
+  dialogMode: 'add' | 'edit' = 'add';
 
   dialogAdd() {
     this.dialogMode = 'add';
-    this.blankTask = this.CreateBlankTask();
+    this.blankTask = this.createBlankTask();
     this.isDialogOpen = true;
   }
 
-  blankTask: Task = this.CreateBlankTask();
+  blankTask: Task = this.createBlankTask();
 
-  CreateBlankTask(): Task {
+  createBlankTask(): Task {
     return {
       title: '',
-      id: 123,
+      id: -1,
       priority: Priority.LOW,
       description: '',
       finished: null,
@@ -44,17 +44,11 @@ export class AppComponent {
 
   addTask(task: Task) {
     if (this.dialogMode === 'add') {
-      task.id = Date.now();
-      this.tasks.push(task);
+      this.tasks = this.taskService.addTask(task);
     }
 
     if (this.dialogMode === 'edit') {
-      this.tasks = this.tasks.map((item) => {
-        if (item.id === task.id) {
-          return task;
-        }
-        return item;
-      });
+      this.tasks = this.taskService.updateTask(task);
     }
 
     this.isDialogOpen = false;
@@ -68,5 +62,9 @@ export class AppComponent {
     this.dialogMode = 'edit';
     this.blankTask = { ...task };
     this.isDialogOpen = true;
+  }
+
+  constructor(private taskService: TaskService) {
+    this.tasks = this.taskService.getTasks();
   }
 }

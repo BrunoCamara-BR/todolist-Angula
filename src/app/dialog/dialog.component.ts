@@ -8,7 +8,7 @@ import { Priority } from '../../interfaces/Task';
   imports: [FormsModule],
   template: `
     <dialog open>
-      <!-- <h2>{{ dialogModeName }}</h2> -->
+      <h2>{{ dialogMode === 'edit' ? 'Edit Task' : 'Add Task' }}</h2>
       <form>
         <label for="title">Title:</label>
         <input
@@ -30,7 +30,8 @@ import { Priority } from '../../interfaces/Task';
             type="radio"
             name="priority"
             id="low"
-            (change)="SetPriority(priorityOptions.LOW)"
+            [checked]="newTask.priority === priorityOptions.LOW"
+            (change)="setPriority(priorityOptions.LOW)"
           />
           <label for="low">low</label>
 
@@ -38,7 +39,8 @@ import { Priority } from '../../interfaces/Task';
             type="radio"
             name="priority"
             id="medium"
-            (change)="SetPriority(priorityOptions.MEDIUM)"
+            [checked]="newTask.priority === priorityOptions.MEDIUM"
+            (change)="setPriority(priorityOptions.MEDIUM)"
           />
           <label for="medium">medium</label>
 
@@ -46,11 +48,20 @@ import { Priority } from '../../interfaces/Task';
             type="radio"
             name="priority"
             id="high"
-            (change)="SetPriority(priorityOptions.HIGH)"
+            [checked]="newTask.priority === priorityOptions.HIGH"
+            (change)="setPriority(priorityOptions.HIGH)"
           />
           <label for="high">high</label>
         </div>
-        <button type="button" (click)="Save()">Save</button>
+        <button
+          type="button"
+          (click)="save()"
+          [disabled]="
+            newTask.title.trim() == '' || newTask.description.trim() == ''
+          "
+        >
+          {{ dialogMode === 'edit' ? 'Save' : 'Add Task' }}
+        </button>
         <button type="button" (click)="closeDialog()">Cancel</button>
       </form>
     </dialog>
@@ -69,11 +80,16 @@ export class DialogComponent {
   }
 
   @Output() saveTask = new EventEmitter();
-  Save() {
+  save() {
+    if (this.newTask.title.trim() === '' || this.newTask.description === '') {
+      return;
+    }
     this.saveTask.emit(this.newTask);
   }
 
-  SetPriority(priority: Priority) {
+  setPriority(priority: Priority) {
     this.newTask.priority = priority;
   }
+
+  @Input() dialogMode: 'add' | 'edit' = 'add';
 }

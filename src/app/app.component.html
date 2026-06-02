@@ -11,6 +11,7 @@
 @if (isDialogOpen) {
   <app-dialog
     [newTask]="blankTask"
+    [dialogMode]="dialogMode"
     (closeButton)="isDialogOpen = false"
     (saveTask)="addTask($event)"
   ></app-dialog>
