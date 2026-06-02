@@ -2,11 +2,16 @@
   <app-button text="add" (clickedButton)="dialogAdd()"></app-button>
 </div>
 
-<app-todo-container> </app-todo-container>
+<app-todo-container
+  [tasks]="tasks"
+  (removeTask)="removeTask($event)"
+  (editTask)="dialogEdit($event)"
+></app-todo-container>
 
 @if (isDialogOpen) {
   <app-dialog
-    [newTask]="this.blankTask"
+    [newTask]="blankTask"
     (closeButton)="isDialogOpen = false"
+    (saveTask)="addTask($event)"
   ></app-dialog>
 }

@@ -1,24 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { CheckBoxComponent } from '../check-box/check-box.component';
-
+import { Task } from '../../interfaces/Task';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-list',
-  imports: [ButtonComponent, CheckBoxComponent],
+  imports: [ButtonComponent, CheckBoxComponent, DatePipe],
   template: `
     <li>
       <p class="title">
-        {{ title }}
-        <span class="priority"> - {{ priority }} </span>
+        {{ task.title }}
+        <span class="priority"> - {{ task.priority }} </span>
       </p>
-      <p class="id">id:{{ id }}</p>
+      <p class="id">id:{{ task.id }}</p>
       <p class="description">Description</p>
-      <p class="desc-info">{{ description }}</p>
+      <p class="desc-info">{{ task.description }}</p>
       <p class="finish">Finished date:</p>
-      <p>{{ done }}</p>
+      <p>{{ task.finished | date: 'dd/mm/yy, HH:mm' }}</p>
       <div class="option">
-        <app-button text="Edit"></app-button>
-        <app-button text="Remove"></app-button>
+        <app-button text="Edit" (clickedButton)="Edit()" ></app-button>
+        <app-button text="Remove" (clickedButton)="Remove()"></app-button>
       </div>
       <app-check-box (checkbox)="check()"> </app-check-box>
     </li>
@@ -26,19 +27,26 @@ import { CheckBoxComponent } from '../check-box/check-box.component';
   styleUrl: './list.component.css',
 })
 export class ListComponent {
-  title: string = 'Read Books';
-  priority: string = 'high';
-  id: number = 289;
-  description: string = 'Read 5 pages per day.';
-  finished: string = '28/05/2026, 10:14';
-  done: Date | null = null;
+  @Input() task!: Task;
 
-  // depois melhorar esta lógica de toogle
   check() {
-    if (this.done == null) {
-      this.done = new Date(Date.now());
+    if (this.task.finished == null) {
+      this.task.finished = new Date();
     } else {
-      this.done = null;
+      this.task.finished = null;
     }
   }
+
+  @Output() removeTask = new EventEmitter<number>();
+
+  Remove() {
+    this.removeTask.emit(this.task.id);
+  }
+
+  @Output() editTask = new EventEmitter<Task>();
+
+  Edit() {
+    this.editTask.emit(this.task);
+  }
+  
 }

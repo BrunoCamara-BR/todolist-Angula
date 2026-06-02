@@ -23,7 +23,6 @@ import { Priority } from '../../interfaces/Task';
           name="description"
           id="description"
           [(ngModel)]="newTask.description"
-          ;
         ></textarea>
         <p>Priority:</p>
         <div>
@@ -43,14 +42,16 @@ import { Priority } from '../../interfaces/Task';
           />
           <label for="medium">medium</label>
 
-          <input type="radio" name="priority" id="high"
-          (change)="SetPriority(priorityOptions.HIGH)"
-          
+          <input
+            type="radio"
+            name="priority"
+            id="high"
+            (change)="SetPriority(priorityOptions.HIGH)"
           />
           <label for="high">high</label>
         </div>
         <p>[{{ newTask.priority }}</p>
-        <button type="button">Save</button>
+        <button type="button" (click)="Save()">Save</button>
         <button type="button" (click)="closeDialog()">Cancel</button>
       </div>
     </dialog>
