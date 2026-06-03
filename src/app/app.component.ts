@@ -8,11 +8,7 @@ import { TaskService } from './services/task.service';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    ButtonComponent,
-    TodoContainerComponent,
-    DialogComponent,
-  ],
+  imports: [ButtonComponent, TodoContainerComponent, DialogComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
@@ -55,13 +51,17 @@ export class AppComponent {
   }
 
   removeTask(id: number) {
-    this.tasks = this.tasks.filter((task) => task.id !== id);
+    this.tasks = this.taskService.removeTask(id);
   }
 
   dialogEdit(task: Task) {
     this.dialogMode = 'edit';
     this.blankTask = { ...task };
     this.isDialogOpen = true;
+  }
+
+  toggleFinishedTask(id: number) {
+    this.tasks = this.taskService.toggleFinished(id);
   }
 
   constructor(private taskService: TaskService) {

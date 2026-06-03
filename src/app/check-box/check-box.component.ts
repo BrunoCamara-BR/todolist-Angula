@@ -1,9 +1,15 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Input, input } from '@angular/core';
+import { ListComponent } from '../list/list.component';
 
 @Component({
   selector: 'app-check-box',
   imports: [],
-  template: `<input type="checkbox" (change)="emitCheck()" class="check" /> `,
+  template: `<input
+    type="checkbox"
+    (change)="emitCheck()"
+    class="check"
+    [checked]="checked"
+  /> `,
   styleUrl: './check-box.component.css',
 })
 export class CheckBoxComponent {
@@ -11,4 +17,5 @@ export class CheckBoxComponent {
   emitCheck() {
     this.checkbox.emit();
   }
+  @Input() checked = false;
 }

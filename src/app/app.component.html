@@ -6,6 +6,7 @@
   [tasks]="tasks"
   (removeTask)="removeTask($event)"
   (editTask)="dialogEdit($event)"
+  (onToggleFinishedTask) = "toggleFinishedTask($event)"
 ></app-todo-container>
 
 @if (isDialogOpen) {

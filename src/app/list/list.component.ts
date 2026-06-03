@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, output } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 import { CheckBoxComponent } from '../check-box/check-box.component';
 import { Task } from '../../interfaces/Task';
@@ -21,7 +21,7 @@ import { DatePipe } from '@angular/common';
         <app-button text="Edit" (clickedButton)="Edit()" ></app-button>
         <app-button text="Remove" (clickedButton)="Remove()"></app-button>
       </div>
-      <app-check-box (checkbox)="check()"> </app-check-box>
+      <app-check-box (checkbox)="check()"  [checked]="task.finished != null"> </app-check-box>
     </li>
   `,
   styleUrl: './list.component.css',
@@ -29,12 +29,9 @@ import { DatePipe } from '@angular/common';
 export class ListComponent {
   @Input() task!: Task;
 
+  @Output() toggleFinishedTask = new EventEmitter<number>();
   check() {
-    if (this.task.finished == null) {
-      this.task.finished = new Date();
-    } else {
-      this.task.finished = null;
-    }
+    this.toggleFinishedTask.emit(this.task.id);
   }
 
   @Output() removeTask = new EventEmitter<number>();

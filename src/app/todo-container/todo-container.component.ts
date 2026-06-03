@@ -12,6 +12,7 @@ import { Task } from '../../interfaces/Task';
           [task]="task"
           (removeTask)="removeTask.emit($event)"
           (editTask)="editTask.emit($event)"
+          (toggleFinishedTask)="check($event)"
         ></app-list>
       }
     </ul>
@@ -24,4 +25,9 @@ export class TodoContainerComponent {
   @Output() removeTask = new EventEmitter<number>();
 
   @Output() editTask = new EventEmitter<Task>();
+
+  @Output() onToggleFinishedTask = new EventEmitter<number>();
+  check(id: number) {
+    this.onToggleFinishedTask.emit(id);
+  }
 }
