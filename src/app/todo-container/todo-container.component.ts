@@ -27,6 +27,7 @@ export class TodoContainerComponent {
   @Output() editTask = new EventEmitter<Task>();
 
   @Output() onToggleFinishedTask = new EventEmitter<number>();
+
   check(id: number) {
     this.onToggleFinishedTask.emit(id);
   }

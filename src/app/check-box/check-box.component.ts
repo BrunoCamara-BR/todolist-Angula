@@ -13,9 +13,11 @@ import { ListComponent } from '../list/list.component';
   styleUrl: './check-box.component.css',
 })
 export class CheckBoxComponent {
+  @Input() checked = false;
+
   @Output() checkbox = new EventEmitter();
+
   emitCheck() {
     this.checkbox.emit();
   }
-  @Input() checked = false;
 }

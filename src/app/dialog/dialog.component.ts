@@ -71,15 +71,18 @@ import { Priority } from '../../interfaces/Task';
 export class DialogComponent {
   @Input() newTask!: Task;
 
-  priorityOptions = Priority;
+  @Input() dialogMode: 'add' | 'edit' = 'add';
 
   @Output() closeButton = new EventEmitter();
+
+  @Output() saveTask = new EventEmitter();
+
+  priorityOptions = Priority;
 
   closeDialog() {
     this.closeButton.emit();
   }
 
-  @Output() saveTask = new EventEmitter();
   save() {
     if (this.newTask.title.trim() === '' || this.newTask.description === '') {
       return;
@@ -90,6 +93,4 @@ export class DialogComponent {
   setPriority(priority: Priority) {
     this.newTask.priority = priority;
   }
-
-  @Input() dialogMode: 'add' | 'edit' = 'add';
 }

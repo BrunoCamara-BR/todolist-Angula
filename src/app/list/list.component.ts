@@ -18,10 +18,11 @@ import { DatePipe } from '@angular/common';
       <p class="finish">Finished date:</p>
       <p>{{ task.finished | date: 'dd/mm/yy, HH:mm' }}</p>
       <div class="option">
-        <app-button text="Edit" (clickedButton)="Edit()" ></app-button>
+        <app-button text="Edit" (clickedButton)="Edit()"></app-button>
         <app-button text="Remove" (clickedButton)="Remove()"></app-button>
       </div>
-      <app-check-box (checkbox)="check()"  [checked]="task.finished != null"> </app-check-box>
+      <app-check-box (checkbox)="check()" [checked]="task.finished != null">
+      </app-check-box>
     </li>
   `,
   styleUrl: './list.component.css',
@@ -29,21 +30,21 @@ import { DatePipe } from '@angular/common';
 export class ListComponent {
   @Input() task!: Task;
 
+  @Output() removeTask = new EventEmitter<number>();
+
+  @Output() editTask = new EventEmitter<Task>();
+
   @Output() toggleFinishedTask = new EventEmitter<number>();
+
   check() {
     this.toggleFinishedTask.emit(this.task.id);
   }
-
-  @Output() removeTask = new EventEmitter<number>();
 
   Remove() {
     this.removeTask.emit(this.task.id);
   }
 
-  @Output() editTask = new EventEmitter<Task>();
-
   Edit() {
     this.editTask.emit(this.task);
   }
-  
 }

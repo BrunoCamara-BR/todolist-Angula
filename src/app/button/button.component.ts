@@ -7,11 +7,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrl: './button.component.css',
 })
 export class ButtonComponent {
+  @Input() text = '';
+
   @Output() clickedButton = new EventEmitter();
 
   emitClick() {
     this.clickedButton.emit();
   }
-
-  @Input() text = '';
 }
